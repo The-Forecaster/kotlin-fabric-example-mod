@@ -13,8 +13,8 @@ val archivesBaseName: String by project
 val version: String by project
 val group: String by project
 
+val fabric_version: String by project
 val minecraft_version: String by project
-val kotlin_version: String by project
 
 java.withSourcesJar()
 
@@ -23,6 +23,14 @@ dependencies {
     minecraft("com.mojang:minecraft:$minecraft_version")
     mappings("net.fabricmc:yarn:$minecraft_version+build.1:v2")
     modImplementation("net.fabricmc:fabric-loader:0.14.11")
+
+    // Fabric API. This is technically optional, but you probably want it anyway.
+	modImplementation("net.fabricmc.fabric-api:fabric-api:$fabric_version")
+
+	// Uncomment the following line to enable the deprecated Fabric API modules. 
+	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
+
+	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:$fabric_version"
 }
 
 tasks {
