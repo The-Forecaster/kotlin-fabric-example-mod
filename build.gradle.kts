@@ -25,26 +25,31 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:0.14.11")
 
     // Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation("net.fabricmc.fabric-api:fabric-api:$fabric_version")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:$fabric_version")
 
-	// Uncomment the following line to enable the deprecated Fabric API modules. 
-	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
+    // Uncomment the following line to enable the deprecated Fabric API modules.
+    // These are included in the Fabric API production distribution and allow you to update your mod
+    // to the latest modules at a later more convenient time.
 
-	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:$fabric_version"
+    // modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:$fabric_version"
 }
 
 tasks {
-    withType<KotlinCompile> { kotlinOptions { jvmTarget = "17" } }
-
-    jar {
-        from("LICENSE") {
-            rename { "${it}_$archivesBaseName"}
-        }
+    jar { 
+        from("LICENSE") { 
+            rename { "${it}_$archivesBaseName" } 
+        } 
     }
 
     withType(JavaCompile::class).configureEach {
         options.release.set(17)
         options.encoding = "UTF-8"
+    }
+
+    withType<KotlinCompile> { 
+        kotlinOptions { 
+            jvmTarget = "17" 
+        } 
     }
 
     getByName<ProcessResources>("processResources") {
