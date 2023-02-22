@@ -52,7 +52,7 @@ tasks {
         } 
     }
 
-    getByName<ProcessResources>("processResources") {
+    processResources {
         filesMatching("fabric.mod.json") {
             expand(mapOf("version" to version, "mcversion" to minecraft_version))
         }
