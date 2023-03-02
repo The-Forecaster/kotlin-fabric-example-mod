@@ -41,7 +41,7 @@ tasks {
         } 
     }
     
-    withType<JavaCompile>().configureEach {
+    withType<JavaCompile> {
         options.release.set(17)
         options.encoding = "UTF-8"
     }
