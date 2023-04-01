@@ -19,6 +19,9 @@ val minecraft_version: String by project
 java.withSourcesJar()
 
 dependencies {
+    val fabric_version: String by project
+    val fabric_kotlin_version: String by project
+
     // fabric dependencies
     minecraft("com.mojang:minecraft:$minecraft_version")
     mappings("net.fabricmc:yarn:$minecraft_version+build.1:v2")
@@ -26,6 +29,9 @@ dependencies {
 
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation("net.fabricmc.fabric-api:fabric-api:$fabric_version")
+
+    // Kotlin adapter for fabric
+    modImplementation("net.fabricmc:fabric-language-kotlin:$fabric_kotlin_version")
 
     // Uncomment the following line to enable the deprecated Fabric API modules.
     // These are included in the Fabric API production distribution and allow you to update your mod
@@ -41,6 +47,10 @@ tasks {
         } 
     }
     
+<<<<<<< Updated upstream
+=======
+    // I don't really understand why you need the parentheses here but it throws a syntax error otherwise 
+>>>>>>> Stashed changes
     withType<JavaCompile> {
         options.release.set(17)
         options.encoding = "UTF-8"
