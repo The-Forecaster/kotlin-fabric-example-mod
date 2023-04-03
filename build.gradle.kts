@@ -46,11 +46,7 @@ tasks {
             rename { "${it}_$archivesBaseName" } 
         } 
     }
-    
-<<<<<<< Updated upstream
-=======
-    // I don't really understand why you need the parentheses here but it throws a syntax error otherwise 
->>>>>>> Stashed changes
+
     withType<JavaCompile> {
         options.release.set(17)
         options.encoding = "UTF-8"
