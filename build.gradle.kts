@@ -2,6 +2,7 @@ plugins {
     java
     kotlin("jvm") version "1.8.21"
     id("fabric-loom") version "1.2-SNAPSHOT"
+    `maven-publish`
 }
 
 val minecraft_version: String by project
@@ -27,8 +28,8 @@ repositories {
 dependencies {
     // fabric dependencies
     minecraft("com.mojang:minecraft:$minecraft_version")
-    mappings("net.fabricmc:yarn:$minecraft_version+build.1:v2")
-    modImplementation("net.fabricmc:fabric-loader:0.14.11")
+    mappings("net.fabricmc:yarn:$yarn_mappings")
+    modImplementation("net.fabricmc:fabric-loader:$loader_version")
 
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation("net.fabricmc.fabric-api:fabric-api:$fabric_version")
@@ -62,7 +63,7 @@ tasks {
         }
     }
 
-    withType<JavaCompile> {
+    withType<JavaCompile>().configureEach {
         options.release.set(17)
         options.encoding = "UTF-8"
     }
@@ -74,5 +75,22 @@ tasks {
         filesMatching("fabric.mod.json") {
             expand(mapOf("version" to version, "mcversion" to minecraft_version))
         }
+    }
+}
+
+// configure the maven publication
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["java"])
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+        // Add repositories to publish to here.
+        // Notice: This block does NOT have the same function as the block in the top level.
+        // The repositories here will be used for publishing your artifact, not for
+        // retrieving dependencies.
     }
 }
