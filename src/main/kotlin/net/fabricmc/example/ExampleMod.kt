@@ -4,15 +4,12 @@ import net.fabricmc.api.ModInitializer
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-class ExampleMod : ModInitializer {
-    companion object {
-        // This logger is used to write text to the console and the log file.
-        // It is considered best practice to use your mod id as the logger's name.
-        // That way, it's clear which mod wrote info, warnings, and errors.
-        // Putting this in the companion object means that it can be referenced in the jvm without needing to make a new object
-        @JvmField
-        val LOGGER: Logger = LoggerFactory.getLogger("modid")
-    }
+object ExampleMod : ModInitializer {
+    // This logger is used to write text to the console and the log file.
+    // It is considered best practice to use your mod id as the logger's name.
+    // That way, it's clear which mod wrote info, warnings, and errors.
+    @JvmField
+    val LOGGER: Logger = LoggerFactory.getLogger("modid")
 
     override fun onInitialize() {
         // This code runs as soon as Minecraft is in a mod-load-ready state.

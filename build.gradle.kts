@@ -49,25 +49,21 @@ base {
 }
 
 java {
+    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+    // if it is present.
+    // If you remove this line, sources will not be generated.
     withSourcesJar()
+
+    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_17
 }
 
 kotlin {
+    // Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
     jvmToolchain(17)
 }
 
 tasks {
-    jar {
-        from("LICENSE") {
-            rename { "${it}_${base.archivesName.get()}" }
-        }
-    }
-
-    withType<JavaCompile>().configureEach {
-        options.release.set(17)
-        options.encoding = "UTF-8"
-    }
-
     processResources {
         inputs.property("version", project.version)
         inputs.property("mcversion", minecraft_version)
@@ -75,6 +71,17 @@ tasks {
         filesMatching("fabric.mod.json") {
             expand(mapOf("version" to version, "mcversion" to minecraft_version))
         }
+    }
+
+    jar {
+        from("LICENSE") {
+            rename { "${it}_${base.archivesName.get()}" }
+        }
+    }
+
+    withType<JavaCompile>().configureEach {
+        // Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
+        options.release.set(17)
     }
 }
 
