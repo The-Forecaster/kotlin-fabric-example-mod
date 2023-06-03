@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 // Mixins won't work unless they are .java files
 // If you want to use mixins put them in this folder and make sure they are .java files
 @Mixin(TitleScreen.class)
-public class ExampleMixin {
+public abstract class ExampleMixin {
     @Inject(at = @At("HEAD"), method = "init()V")
     private void init(CallbackInfo info) {
         ExampleMod.LOGGER.info("This line is printed by an example mod mixin!");
