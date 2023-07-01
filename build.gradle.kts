@@ -1,6 +1,6 @@
 plugins {
     java
-    kotlin("jvm") version "1.8.21"
+    kotlin("jvm") version "1.8.22"
     id("fabric-loom") version "1.2-SNAPSHOT"
     `maven-publish`
 }
@@ -13,9 +13,14 @@ val maven_group: String by project
 val archives_base_name: String by project
 val fabric_version: String by project
 val fabric_kotlin_version: String by project
+val kotlin_version: String by project
 
 version = mod_version
 group = maven_group
+
+base {
+    archivesName.set(archives_base_name)
+}
 
 repositories {
     // Add repositories to retrieve artifacts from in here.
@@ -25,10 +30,14 @@ repositories {
     // for more information about repositories.
 }
 
+loom {
+    splitEnvironmentSourceSets()
+}
+
 dependencies {
     // fabric dependencies
     minecraft("com.mojang:minecraft:$minecraft_version")
-    mappings("net.fabricmc:yarn:$yarn_mappings")
+    mappings("net.fabricmc:yarn:$yarn_mappings:v2")
     modImplementation("net.fabricmc:fabric-loader:$loader_version")
 
     // Fabric API. This is technically optional, but you probably want it anyway.
@@ -37,15 +46,14 @@ dependencies {
     // Kotlin adapter for fabric
     modImplementation("net.fabricmc:fabric-language-kotlin:$fabric_kotlin_version")
 
+    // Kotlin standard library
+    modImplementation(kotlin("stdlib", kotlin_version))
+
     // Uncomment the following line to enable the deprecated Fabric API modules.
     // These are included in the Fabric API production distribution and allow you to update your mod
     // to the latest modules at a later more convenient time.
 
     // modImplementation("net.fabricmc.fabric-api:fabric-api-deprecated:$fabric_version")
-}
-
-base {
-    archivesName.set(archives_base_name)
 }
 
 java {
@@ -66,22 +74,21 @@ kotlin {
 tasks {
     processResources {
         inputs.property("version", project.version)
-        inputs.property("mcversion", minecraft_version)
 
         filesMatching("fabric.mod.json") {
-            expand(mapOf("version" to version, "mcversion" to minecraft_version))
-        }
-    }
-
-    jar {
-        from("LICENSE") {
-            rename { "${it}_${base.archivesName.get()}" }
+            expand(mapOf("version" to version))
         }
     }
 
     withType<JavaCompile>().configureEach {
         // Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
         options.release.set(17)
+    }
+
+    jar {
+        from("LICENSE") {
+            rename { "${it}_${base.archivesName.get()}" }
+        }
     }
 }
 

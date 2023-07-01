@@ -5,8 +5,8 @@ If you've wanted a mod template for fabric that is ready with kotlin then you're
 If you're looking program your own mod then consider adding in parts of the kotlin standard library
 
 1. kotlin-stdlib-jdk8 adds functionality to work with Java 8 and is required by other parts of the std-lib
-2. kotlin-reflect allows you to examine examine classes and do actions on a deeper level
-3. [kotlinx-coroutines](https://github.com/Kotlin/kotlinx.coroutines) isn't part of the std-lib but it is super useful is allowing you to program asynchronously
+2. kotlin-reflect allows you to examine classes and do actions on a deeper level
+3. [kotlinx-coroutines](https://github.com/Kotlin/kotlinx.coroutines) isn't part of the std-lib, but it is super useful in allowing you to program asynchronously
 
 ## Setup
 
