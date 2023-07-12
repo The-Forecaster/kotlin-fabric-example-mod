@@ -5,21 +5,11 @@ plugins {
     `maven-publish`
 }
 
-val minecraft_version: String by project
-val yarn_mappings: String by project
-val loader_version: String by project
-val mod_version: String by project
-val maven_group: String by project
-val archives_base_name: String by project
-val fabric_version: String by project
-val fabric_kotlin_version: String by project
-val kotlin_version: String by project
-
-version = mod_version
-group = maven_group
+version = project.property("mod_version")!!
+group = project.property("maven_group")!!
 
 base {
-    archivesName.set(archives_base_name)
+    archivesName.set(project.property("archives_base_name").toString())
 }
 
 repositories {
@@ -40,18 +30,18 @@ loom {
 }
 dependencies {
     // To change the versions see the gradle.properties file
-    minecraft("com.mojang:minecraft:$minecraft_version")
-    mappings("net.fabricmc:yarn:$yarn_mappings:v2")
-    modImplementation("net.fabricmc:fabric-loader:$loader_version")
+    minecraft("com.mojang:minecraft:${project.property("minecraft_version")}")
+    mappings("net.fabricmc:yarn:${project.property("yarn_mappings")}:v2")
+    modImplementation("net.fabricmc:fabric-loader:${project.property("loader_version")}")
 
     // Fabric API. This is technically optional, but you probably want it anyway.
-    modImplementation("net.fabricmc.fabric-api:fabric-api:$fabric_version")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
 
     // Kotlin adapter for fabric
-    modImplementation("net.fabricmc:fabric-language-kotlin:$fabric_kotlin_version")
+    modImplementation("net.fabricmc:fabric-language-kotlin:${project.property("fabric_kotlin_version")}")
 
     // Kotlin standard library
-    modImplementation(kotlin("stdlib", kotlin_version))
+    modImplementation(kotlin("stdlib", project.property("kotlin_version").toString()))
 
     // Uncomment the following line to enable the deprecated Fabric API modules.
     // These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
