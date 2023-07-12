@@ -24,7 +24,7 @@
     "client": [
       {
         "adapter": "kotlin",
-        "value": "come.example.ExampleModClient"
+        "value": "com.example.ExampleModClient"
       }
     ]
   },
