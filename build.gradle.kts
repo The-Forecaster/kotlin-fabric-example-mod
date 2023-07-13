@@ -23,9 +23,11 @@ repositories {
 loom {
     splitEnvironmentSourceSets()
 
-    mods.create("modid") {
-        sourceSet(sourceSets.main.get())
-        sourceSet(sourceSets.getByName("client"))
+    mods {
+        create("modid") {
+            sourceSet(sourceSets.main.get())
+            sourceSet(sourceSets.getByName("client"))
+        }
     }
 }
 dependencies {
